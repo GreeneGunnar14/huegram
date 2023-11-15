@@ -4,7 +4,7 @@ import PostHue from "./PostHue";
 
 interface Props {
   posts: Post[];
-  addHue: (color: string, textColor: string) => void;
+  addHue: (color: string) => void;
 }
 
 const Main = ({ posts, addHue }: Props) => {

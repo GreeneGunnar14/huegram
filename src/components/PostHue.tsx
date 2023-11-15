@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface Props {
-  addHue: (color: string, textColor: string) => void;
+  addHue: (color: string) => void;
 }
 
 const PostHue = ({ addHue }: Props) => {
@@ -10,23 +10,12 @@ const PostHue = ({ addHue }: Props) => {
 
   const [postColor, setPostColor] = useState("");
 
-  const [textColor, setTextColor] = useState("");
-
   const handleUpdateColor = (color: string) => {
     if (!/^#[0-9A-F]{6}$/i.test(color)) {
       setPostColor("");
-      setTextColor("");
       return;
     }
-    const r_num = Number("0x" + color.slice(1, 3));
-    const g_num = Number("0x" + color.slice(3, 5));
-    const b_num = Number("0x" + color.slice(5, 7));
 
-    const hue_intensity = r_num * 0.299 + g_num * 0.587 + b_num * 0.114;
-
-    const text_color = hue_intensity > 186 ? "#000000" : "#FFFFFF";
-
-    setTextColor(text_color);
     setPostColor(color);
   };
 
@@ -35,7 +24,7 @@ const PostHue = ({ addHue }: Props) => {
       alert("Invalid hex code!");
       return;
     }
-    addHue(postColor, textColor);
+    addHue(postColor);
   };
 
   return (
@@ -43,13 +32,16 @@ const PostHue = ({ addHue }: Props) => {
       <div className="w-1/6 aspect-square rounded-md p-4">
         <div
           id="preview"
-          className="w-full aspect-square rounded-lg flex justify-center items-center"
+          className="w-full aspect-square rounded-lg flex justify-center items-center text-3xl font-bold"
           style={{
             backgroundColor: postColor ? postColor : "black",
-            color: textColor ? textColor : "white",
+            color: "rgb(30 41 59)",
+            background: postColor
+              ? postColor
+              : "radial-gradient(circle, white 10%, rgb(30 41 59) 70%)",
           }}
         >
-          {postColor ? postColor : ". . ."}
+          {postColor ? "" : "?"}
         </div>
       </div>
       <div
