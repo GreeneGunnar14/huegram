@@ -12,6 +12,9 @@ interface Props {
 }
 
 const Post = (props: Props) => {
+  // Solution for determining lightness value comes from
+  // https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+
   const r_num = Number("0x" + props.post.color.slice(1, 3));
   const g_num = Number("0x" + props.post.color.slice(3, 5));
   const b_num = Number("0x" + props.post.color.slice(5, 7));

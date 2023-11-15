@@ -5,9 +5,6 @@ interface Props {
 }
 
 const PostHue = ({ addHue }: Props) => {
-  // Solution for determining lightness value comes from
-  // https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-
   const [postColor, setPostColor] = useState("");
 
   const handleUpdateColor = (color: string) => {
