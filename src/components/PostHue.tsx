@@ -13,7 +13,7 @@ const PostHue = ({ addHue }: Props) => {
   const [textColor, setTextColor] = useState("");
 
   const handleUpdateColor = (color: string) => {
-    if (color.length < 7) {
+    if (!/^#[0-9A-F]{6}$/i.test(color)) {
       setPostColor("");
       setTextColor("");
       return;
@@ -31,12 +31,11 @@ const PostHue = ({ addHue }: Props) => {
   };
 
   const handleAddHue = () => {
-    if (/^#[0-9A-F]{6}$/i.test(postColor)) {
-      addHue(postColor, textColor);
+    if (!postColor) {
+      alert("Invalid hex code!");
       return;
     }
-
-    alert("Invalid hex code.");
+    addHue(postColor, textColor);
   };
 
   return (
