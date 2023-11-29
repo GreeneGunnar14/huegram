@@ -1,7 +1,7 @@
 import Menu from "./components/Menu";
 import Main from "./components/Main";
-import Profile from "./components/Profile";
 import { useState } from "react";
+import ProfileContainer from "./components/ProfileContainer";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -47,7 +47,7 @@ function App() {
 
       <Main posts={posts} addHue={handleAddHue} />
 
-      <Profile />
+      <ProfileContainer />
     </div>
   );
 }

@@ -7,6 +7,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "../routes/PrivateRoute";
 import LoginRedirect from "./LoginRedirect";
+import LoginForm from "./LoginForm";
+import HueContainer from "./HueContainer";
 
 interface Props {
   posts: Post[];
@@ -22,24 +24,39 @@ const Main = ({ posts, addHue }: Props) => {
 
   return (
     <div className="flex flex-wrap w-full justify-center gap-8 overflow-y-auto">
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <Router>
-            <Routes>
-              <Route
-                path="/login"
-                element={<LoginRedirect onClick={HandleShowLogin} />}
-              />
-              <Route path="/" element={<PrivateRoute />}>
-                <Route path="/" element={<PostHue addHue={addHue} />} />
-              </Route>
-            </Routes>
-          </Router>
-        </PersistGate>
-      </Provider>
-      {posts.map((post) => (
-        <Post post={post} key={post.id} />
-      ))}
+      {showLogin ? (
+        <>
+          <Provider store={store}>
+            <PersistGate persistor={persistor} loading={null}>
+              <Router>
+                <Routes>
+                  <Route
+                    path="/login"
+                    element={<LoginRedirect onClick={HandleShowLogin} />}
+                  />
+                  <Route path="/" element={<PrivateRoute />}>
+                    <Route path="/" element={<PostHue addHue={addHue} />} />
+                  </Route>
+                </Routes>
+              </Router>
+            </PersistGate>
+          </Provider>
+          <HueContainer posts={posts} />
+        </>
+      ) : (
+        <Provider store={store}>
+          <PersistGate persistor={persistor} loading={null}>
+            <Router>
+              <Routes>
+                <Route
+                  path="/login"
+                  element={<LoginForm handleToFromLogin={HandleShowLogin} />}
+                />
+              </Routes>
+            </Router>
+          </PersistGate>
+        </Provider>
+      )}
     </div>
   );
 };

@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.2",
+    "axios-auth-refresh": "^3.3.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
@@ -21,6 +22,7 @@
     "react-router-dom": "^6.20.0",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
+    "swr": "^2.2.4",
     "zod": "^3.22.4"
   },
   "devDependencies": {

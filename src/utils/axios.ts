@@ -15,9 +15,9 @@ axiosService.interceptors.request.use(async (config) => {
 
   if (token !== null) {
     config.headers.Authorization = "Bearer " + token;
-    // @ts-expect-error This code comes from a tutorial. IDK why it would cause an error
     console.debug(
       "[Request]",
+      // @ts-expect-error This code comes from a tutorial. IDK why it would cause an error
       config.baseURL + config.url,
       JSON.stringify(token)
     );
@@ -82,7 +82,7 @@ const refreshAuthLogic = async (failedRequest) => {
 
 createAuthRefreshInterceptor(axiosService, refreshAuthLogic);
 
-export function fetcher<T = any>(url: string) {
+export function fetcher<T = string>(url: string) {
   return axiosService.get<T>(url).then((res) => res.data);
 }
 

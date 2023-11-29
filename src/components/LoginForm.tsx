@@ -41,7 +41,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
   const onSubmit = (data: FieldValues) => {
     console.log(import.meta.env.VITE_API_URL);
     axios
-      .post(`${import.meta.env.VITE_API_URL}/accounts/auth/login/`, data)
+      .post(`/accounts/auth/login/`, data)
       .then((res) => {
         dispatch(
           authSlice.actions.setAuthTokens({
@@ -50,6 +50,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
           })
         );
         dispatch(authSlice.actions.setAccount(res.data.user));
+        handleToFromLogin();
         navigate("/");
       })
       .catch((err) => {
