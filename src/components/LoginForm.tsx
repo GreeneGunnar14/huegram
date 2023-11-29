@@ -41,7 +41,10 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
   const onSubmit = (data: FieldValues) => {
     console.log(import.meta.env.VITE_API_URL);
     axios
-      .post(`/accounts/auth/login/`, data)
+      .post(`/accounts/auth/login/`, data, {
+        baseURL: import.meta.env.VITE_API_URL,
+        headers: { "Content-Type": "Application/json" },
+      })
       .then((res) => {
         dispatch(
           authSlice.actions.setAuthTokens({
