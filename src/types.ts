@@ -1,10 +1,17 @@
 export interface AccountResponse {
-  user: {
-    id: string;
-    email: string;
-    username: string;
-    is_active: boolean;
-  };
+  id: string;
+  email: string;
+  username: string;
+  is_active: boolean;
+
   access: string;
   refresh: string;
+}
+
+export interface HueResponse {
+  hex_code: string;
+  likes: number[];
+  url: string;
+  user: number;
+  username: string;
 }

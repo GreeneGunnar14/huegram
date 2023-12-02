@@ -8,13 +8,15 @@ const axiosService = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  xsrfCookieName: "csrftoken",
+  xsrfHeaderName: "X-CSRFToken",
 });
 
 axiosService.interceptors.request.use(async (config) => {
   const { token } = store.getState().auth;
 
   if (token !== null) {
-    config.headers.Authorization = "Bearer " + token;
+    config.headers.Authorization = "JWT " + token;
     console.debug(
       "[Request]",
       // @ts-expect-error This code comes from a tutorial. IDK why it would cause an error
@@ -53,7 +55,7 @@ const refreshAuthLogic = async (failedRequest) => {
   if (refreshToken !== null) {
     return axios
       .post(
-        "/auth/refresh/",
+        "/accounts/auth/refresh/",
         {
           refresh: refreshToken,
         },
@@ -63,8 +65,7 @@ const refreshAuthLogic = async (failedRequest) => {
       )
       .then((resp) => {
         const { access, refresh } = resp.data;
-        failedRequest.response.config.headers.Authorization =
-          "Bearer " + access;
+        failedRequest.response.config.headers.Authorization = "JWT " + access;
         store.dispatch(
           authSlice.actions.setAuthTokens({
             token: access,

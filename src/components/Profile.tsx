@@ -12,9 +12,9 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const userId = account?.user.id;
+  const userId = account?.id;
 
-  const user = useSWR<AccountResponse>(`/user/${userId}`, fetcher);
+  const user = useSWR<AccountResponse>(`/accounts/user/${userId}/`, fetcher);
 
   const handleLogout = () => {
     dispatch(authSlice.actions.logout());
@@ -23,7 +23,7 @@ const Profile = () => {
 
   return (
     <>
-      <h1>{user.data ? user.data?.user.username : ". . ."}</h1>
+      <h1>{user.data ? user.data?.username : ". . ."}</h1>
 
       <div className="flex w-1/2">
         <img src={pfp} alt="" className="rounded-full" />

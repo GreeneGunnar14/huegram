@@ -39,7 +39,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
   const navigate = useNavigate();
 
   const onSubmit = (data: FieldValues) => {
-    console.log(import.meta.env.VITE_API_URL);
+    console.log(data);
     axios
       .post(`/accounts/auth/login/`, data, {
         baseURL: import.meta.env.VITE_API_URL,
@@ -52,6 +52,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
             refreshToken: res.data.refresh,
           })
         );
+        console.log(res.data.user);
         dispatch(authSlice.actions.setAccount(res.data.user));
         handleToFromLogin();
         navigate("/");

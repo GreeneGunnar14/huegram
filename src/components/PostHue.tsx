@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 interface Props {
-  addHue: (color: string) => void;
+  addHue: (color: string, userId: string | undefined) => void;
 }
 
 const PostHue = ({ addHue }: Props) => {
+  const account = useSelector((state: RootState) => state.auth.account);
+
+  const userId = account?.id;
+
   const [postColor, setPostColor] = useState("");
 
   const handleUpdateColor = (color: string) => {
@@ -21,7 +27,7 @@ const PostHue = ({ addHue }: Props) => {
       alert("Invalid hex code!");
       return;
     }
-    addHue(postColor);
+    addHue(postColor, userId);
   };
 
   return (
