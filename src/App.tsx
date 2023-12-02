@@ -44,7 +44,6 @@ function App() {
           const newPosts = posts?.filter((hue) => {
             return hue.id != hueId;
           });
-          console.log(newPosts);
           setPosts(newPosts);
         }
       });
