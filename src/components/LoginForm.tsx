@@ -39,7 +39,6 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
   const navigate = useNavigate();
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
     axios
       .post(`/accounts/auth/login/`, data, {
         baseURL: import.meta.env.VITE_API_URL,

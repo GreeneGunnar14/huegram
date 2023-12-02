@@ -20,8 +20,6 @@ import { HueResponse } from "./types";
 function App() {
   const [posts, setPosts] = useState<Array<Post>>();
 
-  // const [tempUserId, setTempUserId] = useState(1);
-
   const handleAddHue = (color: string, userId: string | undefined) => {
     const newHue = {
       hex_code: color,
@@ -42,12 +40,13 @@ function App() {
     axios
       .delete(`${import.meta.env.VITE_API_URL}/api/hues/${hueId}/`)
       .then((res) => {
-        res.status == 200 &&
-          setPosts(
-            posts?.filter((hue) => {
-              return hue.id != hueId;
-            })
-          );
+        if (res.status == 204) {
+          const newPosts = posts?.filter((hue) => {
+            return hue.id != hueId;
+          });
+          console.log(newPosts);
+          setPosts(newPosts);
+        }
       });
   };
 
