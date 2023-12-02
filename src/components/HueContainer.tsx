@@ -23,7 +23,9 @@ const HueContainer = ({ posts, handleDeleteHue }: Props) => {
     };
     axios
       .put(`${import.meta.env.VITE_API_URL}/api/hues/${hueId}/`, putData)
-      .then((res) => console.log(res.statusText));
+      .then((res) => {
+        console.log(res, res.statusText);
+      });
   };
 
   return posts?.map((post) => {

@@ -27,6 +27,7 @@ const Post = ({
   // https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
 
   const [isLiked, setIsLiked] = useState(liked);
+  const [numLikes, setNumLikes] = useState(post.likes.length);
 
   const r_num = Number("0x" + post.color.slice(1, 3));
   const g_num = Number("0x" + post.color.slice(3, 5));
@@ -39,13 +40,16 @@ const Post = ({
   return (
     <div>
       <div
-        className="flex flex-col h-64 aspect-square rounded-3xl text-center justify-center items-center bg-"
+        className="flex flex-col h-64 aspect-square rounded-3xl text-center justify-center items-center relative shadow-lg shadow-black"
         style={{
           backgroundColor: post.color,
           color: text_color,
         }}
       >
         <p className=" text-2xl opacity-80">{post.color}</p>
+        <div id={post.id + "-likes"} className="absolute bottom-2 right-4">
+          {numLikes}
+        </div>
       </div>
       <div className="grid grid-rows-1 grid-cols-3 w-full justify-items-center items-center h-10">
         {canDelete ? (
@@ -70,6 +74,7 @@ const Post = ({
           onClick={() => {
             handleLikeUnlike(post.id, !isLiked);
             setIsLiked(!isLiked);
+            setNumLikes(post.likes.length + (isLiked ? -1 : 1));
           }}
           className={
             "text-white rounded-lg p-2 w-fit h-fit " +
