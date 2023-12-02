@@ -1,9 +1,6 @@
 import { useSelector } from "react-redux";
 import Post from "./Post";
 import { RootState } from "../store";
-import useSWR from "swr";
-import { AccountResponse } from "../types";
-import { fetcher } from "../utils/axios";
 import axios from "axios";
 
 interface Props {
@@ -29,17 +26,15 @@ const HueContainer = ({ posts, handleDeleteHue }: Props) => {
       .then((res) => console.log(res.statusText));
   };
 
-  const user = useSWR<AccountResponse>(`/accounts/user/${userId}/`, fetcher);
-  console.log(user.data);
-
   return posts?.map((post) => {
     return (
       <Post
         post={post}
-        canDelete={user.data ? user.data.username == post.username : false}
+        canDelete={account ? account.username == post.username : false}
         key={post.id}
         handleDelete={handleDeleteHue}
         handleLikeUnlike={handleLikeUnlike}
+        liked={userId ? post.likes.indexOf(parseInt(userId)) >= 0 : false}
       />
     );
   });

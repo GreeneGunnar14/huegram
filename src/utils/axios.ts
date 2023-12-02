@@ -16,7 +16,7 @@ axiosService.interceptors.request.use((config) => {
   const { token } = store.getState().auth;
 
   if (token !== null) {
-    config.headers.Authorization = "Bearer " + token;
+    config.headers.Authorization = "Bearer " + JSON.parse(token);
     console.debug(
       "[Request]",
       // @ts-expect-error This code comes from a tutorial. IDK why it would cause an error

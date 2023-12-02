@@ -42,7 +42,12 @@ function App() {
     axios
       .delete(`${import.meta.env.VITE_API_URL}/api/hues/${hueId}/`)
       .then((res) => {
-        console.log(res.statusText);
+        res.status == 200 &&
+          setPosts(
+            posts?.filter((hue) => {
+              return hue.id != hueId;
+            })
+          );
       });
   };
 
@@ -95,10 +100,8 @@ function App() {
   }, [posts]);
 
   const HueResponseToPost = (hue: HueResponse) => {
-    console.log(hue);
-    const resId = parseInt(hue.url.slice(-2, -1));
     const newPost: Post = {
-      id: resId,
+      id: hue.pk,
       color: hue.hex_code,
       username: hue.username,
       likes: hue.likes,

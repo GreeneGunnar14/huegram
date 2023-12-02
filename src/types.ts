@@ -14,4 +14,5 @@ export interface HueResponse {
   url: string;
   user: number;
   username: string;
+  pk: number;
 }
