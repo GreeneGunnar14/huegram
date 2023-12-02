@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface Post {
   color: string;
   username: string;
@@ -23,6 +25,8 @@ const Post = ({
 }: Props) => {
   // Solution for determining lightness value comes from
   // https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
+
+  const [isLiked, setIsLiked] = useState(liked);
 
   const r_num = Number("0x" + post.color.slice(1, 3));
   const g_num = Number("0x" + post.color.slice(3, 5));
@@ -64,11 +68,12 @@ const Post = ({
         <p className="text-center text-white">{post.username}</p>
         <button
           onClick={() => {
-            handleLikeUnlike(post.id, !liked);
+            handleLikeUnlike(post.id, !isLiked);
+            setIsLiked(!isLiked);
           }}
           className={
             "text-white rounded-lg p-2 w-fit h-fit " +
-            (liked
+            (isLiked
               ? "fill-pink-400 hover:fill-pink-800"
               : "fill-white hover:fill-pink-400")
           }
