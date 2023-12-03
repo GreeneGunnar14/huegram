@@ -21,6 +21,7 @@ function App() {
   const [posts, setPosts] = useState<Array<Post>>();
 
   const handleAddHue = (color: string, userId: string | undefined) => {
+    console.log("adding hue");
     const newHue = {
       hex_code: color,
       user: userId,
