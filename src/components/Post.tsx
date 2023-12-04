@@ -109,7 +109,12 @@ const Post = ({
             onClick={() => {
               handleLikeUnlike(post.id, !isLiked);
               setIsLiked(!isLiked);
-              setNumLikes(post.likes.length + (isLiked ? 0 : 1));
+              const like_offset = liked ? -1 : 1;
+              const binary_values = [isLiked ? 1 : 0, liked ? 1 : 0];
+              setNumLikes(
+                post.likes.length +
+                  (!(binary_values[0] ^ binary_values[1]) ? like_offset : 0)
+              );
             }}
             className={
               "text-white rounded-lg p-2 w-fit h-fit " +
