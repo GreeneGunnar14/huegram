@@ -40,7 +40,7 @@ const Post = ({
   const text_color = hue_intensity > 186 ? "#000000" : "#FFFFFF";
 
   return (
-    <div>
+    <div className=" w-64">
       <div
         className={
           "flex flex-col aspect-square rounded-3xl text-center justify-center items-center relative shadow-lg shadow-black"
