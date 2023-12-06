@@ -85,7 +85,7 @@ const PostHue = ({ addHue }: Props) => {
         }
       >
         <h2 className="absolute top-4 font-heading font-bold text-white text-4xl">
-          New Post
+          New Hue
         </h2>
         {
           <Post
