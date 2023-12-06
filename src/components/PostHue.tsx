@@ -81,7 +81,7 @@ const PostHue = ({ addHue }: Props) => {
       <div
         id="preview-box"
         className={
-          "flex flex-col h-fit gap-2 relative items-center justify-center pt-16 pb-4 rounded-lg"
+          "flex flex-col h-fit gap-2 relative items-center justify-center pt-16 pb-4 rounded-lg border-2 shadow-black shadow-lg"
         }
       >
         <h2 className="absolute top-4 font-heading font-bold text-white text-4xl">

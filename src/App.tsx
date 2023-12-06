@@ -57,8 +57,9 @@ function App() {
       setFilteredPosts(posts);
       return;
     }
+    const regexp = new RegExp(`.*${filter_text}.*`);
     const filteredPosts = posts?.filter((post) => {
-      return post.color.indexOf(filter_text) >= 0;
+      return regexp.test(post.color);
     });
     setFilteredPosts(filteredPosts);
   };
@@ -128,9 +129,9 @@ function App() {
   }, []);
 
   return (
-    <div className="flex flex-row flex-wrap bg-gradient-to-b from-blue-900 to-indigo-950 h-screen w-full overflow-hidden">
+    <div className="flex flex-col bg-gradient-to-b from-blue-900 to-indigo-950 h-screen w-full overflow-hidden">
       <Header handleUpdateFilter={handleUpdateFilter} showLogin={showLogin} />
-      <div className="flex h-full w-full pb-5">
+      <div className="flex overflow-hidden w-full">
         <Provider store={store}>
           <PersistGate persistor={persistor} loading={null}>
             <Router>

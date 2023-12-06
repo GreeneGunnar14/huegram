@@ -19,14 +19,16 @@ const Header = ({ handleUpdateFilter, showLogin }: Props) => {
   return (
     <div className="grow top-0 p-4 h-fit flex items-center justify-between pr-[10%]">
       <div className="flex justify-center items-center h-full">
-        <div
-          id="logo"
-          className=" w-20 aspect-square bg-gradient-to-r from-orange-400 to-red-500"
-        />
+        <div id="logo-wrapper">
+          <div className="logo w-20 aspect-square bg-gradient-to-r from-orange-400 to-red-500" />
+        </div>
         <p
           id="site-title"
-          className="text-6xl relative py-6 px-1 font-logo font-black bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent"
+          className="text-6xl z-10 relative drop-shadow-sm shadow-black py-6 px-1 font-logo font-black bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent"
         >
+          Huegram
+        </p>
+        <p className="absolute text-6xl ml-[90px] mt-2 py-6 px-1 font-logo font-black blur-sm">
           Huegram
         </p>
       </div>

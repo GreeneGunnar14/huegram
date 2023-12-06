@@ -13,7 +13,7 @@
   mask-size: contain;
 }
 
-#logo {
+.logo {
   -webkit-mask-image: url(/hg_hex_colored.png);
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
@@ -33,4 +33,14 @@
   background: conic-gradient(from 90deg at 40% -25%, #ec4899, #f97316);
   filter: blur(10px);
   z-index: -1;
+}
+
+#logo-wrapper {
+  background-size: 100%;
+  background-image: url(/hg_hex_colored.png);
+  -webkit-filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.75));
+  -moz-filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.75));
+  -ms-filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.75));
+  -o-filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.75));
+  filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.75));
 }

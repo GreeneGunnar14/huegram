@@ -36,7 +36,7 @@ const HueContainer = ({ posts, handleDeleteHue }: Props) => {
   return (
     <div
       id="hue-container"
-      className="flex flex-wrap gap-8 overflow-scroll h-full flex-grow relative w-3/4 justify-center pt-4 pb-28 bg-transparent"
+      className="flex flex-wrap gap-8 overflow-scroll h-full flex-grow relative w-3/4 justify-center pt-4 pb-5 bg-transparent"
     >
       {posts?.map((post) => {
         return (
