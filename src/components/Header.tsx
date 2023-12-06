@@ -17,10 +17,10 @@ const Header = ({ handleUpdateFilter, showLogin }: Props) => {
   const { register } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   return (
-    <div className="grow top-0 p-4 h-fit flex items-center justify-between pr-[10%]">
+    <div className="top-0 p-4 h-fit flex items-center justify-between pr-[10%] hover:cursor-default">
       <div className="flex justify-center items-center h-full">
         <div id="logo-wrapper">
-          <div className="logo w-20 aspect-square bg-gradient-to-r from-orange-400 to-red-500" />
+          <div className="logo w-16 aspect-square bg-gradient-to-r from-orange-400 to-red-500" />
         </div>
         <p
           id="site-title"
@@ -28,7 +28,7 @@ const Header = ({ handleUpdateFilter, showLogin }: Props) => {
         >
           Huegram
         </p>
-        <p className="absolute text-6xl ml-[90px] mt-2 py-6 px-1 font-logo font-black blur-sm">
+        <p className="absolute text-6xl ml-[75px] mt-3 py-6 px-1 font-logo font-black blur-sm">
           Huegram
         </p>
       </div>

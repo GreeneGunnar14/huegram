@@ -73,7 +73,7 @@ const PostHue = ({ addHue }: Props) => {
       return;
     }
 
-    addHue(data.hex_code, userId);
+    addHue("#" + data.hex_code, userId);
   };
 
   return (
@@ -125,7 +125,7 @@ const PostHue = ({ addHue }: Props) => {
                 onChangeCapture={(e) =>
                   handleUpdateColor(e.currentTarget.value)
                 }
-                className="focus:outline-none bg-transparent block w-1/3"
+                className="focus:outline-none bg-transparent autofill:bg-transparent block w-1/3"
                 maxLength={6}
               />
             </span>
