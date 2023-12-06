@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@700;900&family=Roboto:wght@100;300&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,4 +11,26 @@
   mask-image: url(/DPFP.png);
   mask-repeat: no-repeat;
   mask-size: contain;
+}
+
+#logo {
+  -webkit-mask-image: url(/hg_hex_colored.png);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-image: url(/hg_hex_colored.png);
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+#post-preview {
+  position: relative;
+}
+
+#post-preview::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  background: conic-gradient(from 90deg at 40% -25%, #ec4899, #f97316);
+  filter: blur(10px);
+  z-index: -1;
 }

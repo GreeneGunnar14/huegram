@@ -62,7 +62,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-center gap-8 overflow-y-auto text-white">
+    <div className="flex flex-col w-full pt-10 items-center gap-8 overflow-y-auto text-white">
       <div
         id="form-container"
         className="w-fit h-fit bg-gradient-to-br from-red-400 to-orange-400 p-1 rounded-lg rounded-br-3xl rounded-tl-3xl"
@@ -81,6 +81,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
               className="rounded-lg bg-gradient-to-r from-red-400 to-orange-500  text-bold px-1 border-transparent border-2 focus:border-white focus:outline-none"
               type="text"
               id="username"
+              autoComplete="username"
             />
             {errors.username ? (
               <p className="text-red-600">{errors.username.message}</p>
@@ -97,6 +98,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
               className="rounded-lg bg-gradient-to-r from-red-400 to-orange-500  text-bold px-1 border-transparent border-2 focus:border-white focus:outline-none"
               type="password"
               id="password"
+              autoComplete="current-password"
             />
             {errors.password ? (
               <p className="text-red-600">{errors.password.message}</p>

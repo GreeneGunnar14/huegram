@@ -1,4 +1,3 @@
-import Menu from "./components/Menu";
 import Main from "./components/Main";
 import { useEffect, useState } from "react";
 import ProfileContainer from "./components/ProfileContainer";
@@ -16,9 +15,11 @@ import LoginForm from "./components/LoginForm";
 import axios from "axios";
 import Post from "./components/Post";
 import { HueResponse } from "./types";
+import Header from "./components/Header";
 
 function App() {
   const [posts, setPosts] = useState<Array<Post>>();
+  const [filteredPosts, setFilteredPosts] = useState<Array<Post>>();
 
   const handleAddHue = (color: string, userId: string | undefined) => {
     console.log("adding hue");
@@ -33,7 +34,7 @@ function App() {
       });
   };
 
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
 
   const [loginElements, setLoginElements] = useState<JSX.Element>();
 
@@ -46,20 +47,36 @@ function App() {
             return hue.id != hueId;
           });
           setPosts(newPosts);
+          setFilteredPosts(newPosts);
         }
       });
   };
 
+  const handleUpdateFilter = (filter_text: string) => {
+    if (filter_text == "") {
+      setFilteredPosts(posts);
+      return;
+    }
+    const filteredPosts = posts?.filter((post) => {
+      return post.color.indexOf(filter_text) >= 0;
+    });
+    setFilteredPosts(filteredPosts);
+  };
+
   const handleShowLogin = () => {
+    setShowLogin(!showLogin);
+  };
+
+  useEffect(() => {
     let newElements: JSX.Element;
     showLogin
       ? (newElements = (
           <>
             <Main>
-              <LoginRedirect onClick={handleShowLogin}></LoginRedirect>
+              <LoginRedirect onClick={handleShowLogin} />
               <HueContainer
                 handleDeleteHue={handleDeleteHue}
-                posts={posts}
+                posts={filteredPosts}
               ></HueContainer>
             </Main>
             <ProfileContainer>
@@ -68,35 +85,14 @@ function App() {
           </>
         ))
       : (newElements = (
-          <>
+          <div className="w-full flex justify-center">
             <Main>
-              <LoginForm handleToFromLogin={handleShowLogin}></LoginForm>
+              <LoginForm handleToFromLogin={handleShowLogin} />
             </Main>
-            <ProfileContainer>
-              <GuestProfile></GuestProfile>
-            </ProfileContainer>
-          </>
+          </div>
         ));
     setLoginElements(newElements);
-    setShowLogin(!showLogin);
-  };
-
-  useEffect(() => {
-    setLoginElements(
-      <>
-        <Main>
-          <LoginRedirect onClick={handleShowLogin}></LoginRedirect>
-          <HueContainer
-            handleDeleteHue={handleDeleteHue}
-            posts={posts}
-          ></HueContainer>
-        </Main>
-        <ProfileContainer>
-          <GuestProfile></GuestProfile>
-        </ProfileContainer>
-      </>
-    );
-  }, [posts]);
+  }, [posts, showLogin]);
 
   const HueResponseToPost = (hue: HueResponse) => {
     const newPost: Post = {
@@ -116,6 +112,7 @@ function App() {
         newPosts.push(HueResponseToPost(res.data[i]));
       }
       setPosts(newPosts);
+      setFilteredPosts(newPosts);
     });
   };
 
@@ -126,41 +123,46 @@ function App() {
         initialPosts.push(HueResponseToPost(res.data[i]));
       }
       setPosts(initialPosts);
+      setFilteredPosts(initialPosts);
     });
   }, []);
 
   return (
-    <div className="flex bg-slate-800 h-screen">
-      <Menu />
-
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <Router>
-            <Routes>
-              <Route path="/login" element={loginElements} />
-              <Route path="/" element={<PrivateRoute />}>
+    <div className="flex flex-row flex-wrap bg-gradient-to-b from-blue-900 to-indigo-950 h-screen w-full overflow-hidden">
+      <Header handleUpdateFilter={handleUpdateFilter} showLogin={showLogin} />
+      <div className="flex h-full w-full pb-5">
+        <Provider store={store}>
+          <PersistGate persistor={persistor} loading={null}>
+            <Router>
+              <Routes>
                 <Route
-                  path="/"
-                  element={
-                    <>
-                      <Main>
-                        <PostHue addHue={handleAddHue}></PostHue>
-                        <HueContainer
-                          handleDeleteHue={handleDeleteHue}
-                          posts={posts}
-                        ></HueContainer>
-                      </Main>
-                      <ProfileContainer>
-                        <Profile></Profile>
-                      </ProfileContainer>
-                    </>
-                  }
+                  path="/login"
+                  element={loginElements ? loginElements : <></>}
                 />
-              </Route>
-            </Routes>
-          </Router>
-        </PersistGate>
-      </Provider>
+                <Route path="/" element={<PrivateRoute />}>
+                  <Route
+                    path="/"
+                    element={
+                      <>
+                        <Main>
+                          <PostHue addHue={handleAddHue}></PostHue>
+                          <HueContainer
+                            handleDeleteHue={handleDeleteHue}
+                            posts={filteredPosts}
+                          ></HueContainer>
+                        </Main>
+                        <ProfileContainer>
+                          <Profile></Profile>
+                        </ProfileContainer>
+                      </>
+                    }
+                  />
+                </Route>
+              </Routes>
+            </Router>
+          </PersistGate>
+        </Provider>
+      </div>
     </div>
   );
 }

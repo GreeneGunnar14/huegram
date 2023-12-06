@@ -4,7 +4,7 @@ interface Props {
 
 const ProfileContainer = ({ children }: Props) => {
   return (
-    <div className="flex flex-col w-1/4 border-2 p-8 items-center text-white">
+    <div className="flex flex-col w-1/6 p-4 items-center text-white">
       {children}
     </div>
   );

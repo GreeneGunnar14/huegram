@@ -4,7 +4,7 @@ interface Props {
 
 const Main = ({ children }: Props) => {
   return (
-    <div className="flex flex-wrap w-full justify-center gap-8 overflow-y-auto">
+    <div className="flex h-full px-4 gap-4 w-5/6 justify-center">
       {children}
     </div>
   );
