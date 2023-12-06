@@ -110,8 +110,11 @@ const PostHue = ({ addHue }: Props) => {
           >
             <span
               className={
-                "bg-transparent flex flex-row gap-[2px] border-2 justify-center w-full rounded-full px-2 focus-within:border-red-400 overflow-hidden text-white"
+                "bg-transparent flex flex-row gap-[2px] border-2 justify-center w-full rounded-full px-2 active:border-red-400 focus-within:border-red-400 hover:cursor-text overflow-hidden text-white"
               }
+              onClickCapture={(e) => {
+                (e.currentTarget.childNodes[1] as HTMLElement).focus();
+              }}
             >
               <p className="">#</p>
               <input
