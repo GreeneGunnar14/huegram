@@ -182,7 +182,10 @@ function App() {
 
   return (
     <div className="flex flex-col bg-gradient-to-b from-blue-900 to-indigo-950 h-screen w-full overflow-hidden">
-      <Header handleUpdateFilter={handleUpdateFilter} showLogin={showLogin} />
+      <Header
+        handleUpdateFilter={handleUpdateFilter}
+        showLogin={showLogin || showSignup}
+      />
       <div className="flex overflow-hidden w-full">
         <Provider store={store}>
           <PersistGate persistor={persistor} loading={null}>

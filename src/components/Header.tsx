@@ -33,7 +33,7 @@ const Header = ({ handleUpdateFilter, showLogin }: Props) => {
         </p>
       </div>
       <div>
-        {showLogin ? (
+        {!showLogin ? (
           <input
             {...register("filter_text")}
             id="filter-term"
