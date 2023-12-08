@@ -16,6 +16,7 @@ import axios from "axios";
 import Post from "./components/Post";
 import { HueResponse } from "./types";
 import Header from "./components/Header";
+import SignupForm from "./components/SignupForm";
 
 function App() {
   const [posts, setPosts] = useState<Array<Post>>();
@@ -34,7 +35,8 @@ function App() {
       });
   };
 
-  const [showLogin, setShowLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   const [loginElements, setLoginElements] = useState<JSX.Element>();
 
@@ -65,36 +67,58 @@ function App() {
   };
 
   const handleShowLogin = () => {
+    showSignup && setShowSignup(false);
     setShowLogin(!showLogin);
+  };
+
+  const handleShowSignup = () => {
+    showLogin && setShowLogin(false);
+    setShowSignup(!showSignup);
   };
 
   useEffect(() => {
     let newElements: JSX.Element;
-    showLogin
-      ? (newElements = (
-          <>
-            <Main>
-              <LoginRedirect onClick={handleShowLogin} />
-              <HueContainer
-                handleDeleteHue={handleDeleteHue}
-                posts={filteredPosts}
-                toggleHueLiked={handleToggleHueLiked}
-              ></HueContainer>
-            </Main>
-            <ProfileContainer>
-              <GuestProfile />
-            </ProfileContainer>
-          </>
-        ))
-      : (newElements = (
-          <div className="w-full flex justify-center">
-            <Main>
-              <LoginForm handleToFromLogin={handleShowLogin} />
-            </Main>
-          </div>
-        ));
+    if (showLogin) {
+      newElements = (
+        <div className="w-full flex justify-center">
+          <Main>
+            <LoginForm
+              handleToFromSignup={handleShowSignup}
+              handleToFromLogin={handleShowLogin}
+            />
+          </Main>
+        </div>
+      );
+    } else if (showSignup) {
+      newElements = (
+        <div className="w-full flex justify-center">
+          <Main>
+            <SignupForm
+              handleToFromSignup={handleShowSignup}
+              handleToFromLogin={handleShowLogin}
+            />
+          </Main>
+        </div>
+      );
+    } else {
+      newElements = (
+        <>
+          <Main>
+            <LoginRedirect onClick={handleShowLogin} />
+            <HueContainer
+              handleDeleteHue={handleDeleteHue}
+              posts={filteredPosts}
+              toggleHueLiked={handleToggleHueLiked}
+            ></HueContainer>
+          </Main>
+          <ProfileContainer>
+            <GuestProfile />
+          </ProfileContainer>
+        </>
+      );
+    }
     setLoginElements(newElements);
-  }, [posts, showLogin]);
+  }, [posts, showLogin, showSignup]);
 
   const HueResponseToPost = (hue: HueResponse) => {
     const newPost: Post = {

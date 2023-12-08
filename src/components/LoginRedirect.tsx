@@ -4,7 +4,7 @@ interface Props {
 
 const LoginRedirect = ({ onClick }: Props) => {
   return (
-    <div className="w-fit flex flex-col justify-center items-center px-4 gap-2">
+    <div className="w-1/4 flex flex-col justify-center items-center px-4 gap-2">
       <button
         onClick={onClick}
         className="bg-gradient-to-r from-red-400 to-orange-500 text-white h-fit py-2 px-4 rounded-lg"

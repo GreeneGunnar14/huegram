@@ -18,9 +18,10 @@ type FormData = z.infer<typeof schema>;
 
 interface Props {
   handleToFromLogin: () => void;
+  handleToFromSignup: () => void;
 }
 
-const LoginForm = ({ handleToFromLogin }: Props) => {
+const LoginForm = ({ handleToFromLogin, handleToFromSignup }: Props) => {
   const {
     register,
     handleSubmit,
@@ -28,10 +29,6 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-
-  const handleOnClick = () => {
-    console.log("Open registration form.");
-  };
 
   const [message, setMessage] = useState("");
 
@@ -121,7 +118,7 @@ const LoginForm = ({ handleToFromLogin }: Props) => {
       <p className=" my-2 text-center">
         No account yet? Click{" "}
         <button
-          onClick={handleOnClick}
+          onClick={handleToFromSignup}
           className="text-blue-600 hover:text-blue-400"
         >
           here

@@ -65,26 +65,45 @@ const Profile = ({ posts }: Props) => {
       <div
         className="grid w-full aspect-square gap-px"
         style={{
-          gridTemplateColumns: userPosts
+          gridTemplateColumns: userPosts?.length
             ? "repeat(" +
               Math.ceil(Math.sqrt(userPosts.length)) +
               ", minmax(0, 1fr))"
-            : 0,
+            : "repeat(1, minmax(0, 1fr))",
           gridTemplateRows: userPosts
             ? "repeat(" +
               Math.ceil(Math.sqrt(userPosts.length)) +
               ", minmax(0, 1fr)"
-            : 0,
+            : "repeat(1, minmax(0, 1fr)",
         }}
+        title={
+          userPosts && userPosts?.length > 0
+            ? "Your Hue Palette"
+            : "Post your first Hue to start making your palette!"
+        }
       >
         {userPosts?.map((post) => {
           return (
-            <div className="" style={{ backgroundColor: post.color }}></div>
+            <div
+              className=""
+              key={"grid-square-" + post.id}
+              style={{ backgroundColor: post.color }}
+            ></div>
           );
         })}
-        {remainingPosts?.map(() => {
-          return <div className="bg-gray-800 opacity-70"></div>;
+        {remainingPosts?.map((post) => {
+          return (
+            <div
+              key={"preview-grid-square-" + post.key}
+              className="bg-gray-800 opacity-70"
+            ></div>
+          );
         })}
+        {userPosts?.length === 0 && (
+          <div className="bg-gray-800 opacity-70 flex justify-center items-center w-full h-full">
+            ?
+          </div>
+        )}
       </div>
 
       <div className="my-4 py-4 text-center">
