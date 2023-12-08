@@ -8,7 +8,18 @@ type State = {
   account: AccountResponse | null;
 };
 
-const initialState: State = { token: null, refreshToken: null, account: null };
+const initialState: State = {
+  token: null,
+  refreshToken: null,
+  account: {
+    username: "",
+    id: "-1",
+    email: "",
+    is_active: false,
+    access: "",
+    refresh: "",
+  },
+};
 
 const authSlice = createSlice({
   name: "auth",

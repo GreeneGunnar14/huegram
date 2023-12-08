@@ -78,6 +78,7 @@ function App() {
               <HueContainer
                 handleDeleteHue={handleDeleteHue}
                 posts={filteredPosts}
+                toggleHueLiked={handleToggleHueLiked}
               ></HueContainer>
             </Main>
             <ProfileContainer>
@@ -117,6 +118,33 @@ function App() {
     });
   };
 
+  const handleToggleHueLiked = (hueId: number, userId?: string) => {
+    if (!posts) {
+      return;
+    }
+    const id = userId ? parseInt(userId) : -1;
+
+    const post = posts.find((post) => post.id == hueId);
+
+    if (!post) {
+      console.log(`ERR: Post with id ${hueId} not found!`);
+      return;
+    }
+
+    const like_unlike = post.likes.indexOf(id) < 0;
+
+    const putData = {
+      user: id,
+      like_unlike: like_unlike ? 1 : 0,
+    };
+    axios
+      .put(`${import.meta.env.VITE_API_URL}/api/hues/${hueId}/`, putData)
+      .then((res) => {
+        console.log(res, res.statusText);
+        fetchHues();
+      });
+  };
+
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/api/hues/`).then((res) => {
       const initialPosts: Post[] = [];
@@ -149,11 +177,12 @@ function App() {
                           <PostHue addHue={handleAddHue}></PostHue>
                           <HueContainer
                             handleDeleteHue={handleDeleteHue}
+                            toggleHueLiked={handleToggleHueLiked}
                             posts={filteredPosts}
                           ></HueContainer>
                         </Main>
                         <ProfileContainer>
-                          <Profile></Profile>
+                          <Profile posts={posts}></Profile>
                         </ProfileContainer>
                       </>
                     }

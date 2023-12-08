@@ -77,7 +77,7 @@ const PostHue = ({ addHue }: Props) => {
   };
 
   return (
-    <div className="w-full py-2 h-full flex justify-center flex-grow-0 bg-transparent max-w-fit">
+    <div className="w-full py-4 h-full flex justify-center flex-grow-0 bg-transparent max-w-fit">
       <div
         id="preview-box"
         className={
@@ -94,7 +94,7 @@ const PostHue = ({ addHue }: Props) => {
             canDelete={false}
             handleDelete={() => {}}
             handleLikeUnlike={() => {}}
-            liked={false}
+            userId={-1}
           />
         }
 

@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 interface Post {
   color: string;
   username: string;
@@ -12,8 +10,8 @@ interface Props {
   post: Post;
   canDelete: boolean;
   handleDelete: (hueId: number) => void;
-  handleLikeUnlike: (hueId: number, like_unlike: boolean) => void;
-  liked: boolean;
+  handleLikeUnlike: (hueId: number) => void;
+  userId: number;
   isPreview?: boolean;
 }
 
@@ -22,14 +20,11 @@ const Post = ({
   canDelete,
   handleDelete,
   handleLikeUnlike,
-  liked,
+  userId,
   isPreview = false,
 }: Props) => {
   // Solution for determining lightness value comes from
   // https://stackoverflow.com/questions/3942878/how-to-decide-font-color-in-white-or-black-depending-on-background-color
-
-  const [isLiked, setIsLiked] = useState(liked);
-  const [numLikes, setNumLikes] = useState(post.likes.length);
 
   const r_num = Number("0x" + post.color.slice(1, 3));
   const g_num = Number("0x" + post.color.slice(3, 5));
@@ -79,7 +74,7 @@ const Post = ({
               >
                 <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
               </svg>
-              <p>{numLikes}</p>
+              <p>{post.likes.length}</p>
             </div>
           )}
         </div>
@@ -105,18 +100,11 @@ const Post = ({
             <p className="text-center text-white">{post.username}</p>
             <button
               onClick={() => {
-                handleLikeUnlike(post.id, !isLiked);
-                setIsLiked(!isLiked);
-                const like_offset = liked ? -1 : 1;
-                const binary_values = [isLiked ? 1 : 0, liked ? 1 : 0];
-                setNumLikes(
-                  post.likes.length +
-                    (!(binary_values[0] ^ binary_values[1]) ? like_offset : 0)
-                );
+                handleLikeUnlike(post.id);
               }}
               className={
                 "text-white rounded-lg p-2 w-fit h-fit " +
-                (isLiked
+                (post.likes.indexOf(userId) >= 0
                   ? "fill-pink-400 hover:fill-pink-800"
                   : "fill-white hover:fill-pink-400")
               }
