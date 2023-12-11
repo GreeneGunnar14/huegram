@@ -11,14 +11,7 @@ type State = {
 const initialState: State = {
   token: null,
   refreshToken: null,
-  account: {
-    username: "",
-    id: "-1",
-    email: "",
-    is_active: false,
-    access: "",
-    refresh: "",
-  },
+  account: null,
 };
 
 const authSlice = createSlice({
